@@ -67,11 +67,17 @@ nav {
   position: relative;
 }
 
+.navbar-container .logo a:hover{
+  color: #0b0b0b;
+  font-weight: 800;
+}
+
 .logo a {
   color: white;
   font-size: 40px;
   text-decoration: none;
   font-weight: bold;
+  transition: color 0.5s ease;
 }
 
 .nav-links {
@@ -102,6 +108,7 @@ nav {
 .nav-links li a:hover {
   color: #0b0b0b;
   font-weight: bolder;
+  transition: color 0.5s ease;
 }
 
 .social-media a {
@@ -113,7 +120,7 @@ nav {
 }
 
 .social-media a:hover {
-  color: #ff9800;
+  color: #0b0b0b;
 }
 
 @media screen and (max-width: 768px) {

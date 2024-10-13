@@ -60,8 +60,8 @@ function App() {
 
 
     
-    const [hoveredIndex, setHoveredIndex] = useState(null); // To track which item is hovered
-    const [cursorEdit, setCursorEdit] = useState("False"); // To track which item is hovered
+    const [hoveredIndex, setHoveredIndex] = useState(null); 
+    const [cursorEdit, setCursorEdit] = useState("False");
     
     // Array of items
     const items = ['Home', 'About', 'Say Hello'];
@@ -80,6 +80,15 @@ function App() {
 
     };
 
+    const handleMouseEnterLogo = () => {
+      setCursorEdit("True");
+      console.log("Mouse entered logo")
+    }
+
+    const handleMouseLeaveLogo = () => {
+      setCursorEdit("False");
+    }
+
   return (
     <>
     <div id="cursor" style={cursorEdit === "True" ? linkStyle : followerStyle}>
@@ -88,7 +97,9 @@ function App() {
     
         <div class="navbar-container">
             <div class="logo">
-                <a href="#">SR</a>
+                <a href="#"
+                onMouseEnter={() => handleMouseEnterLogo()}
+                onMouseLeave={handleMouseLeaveLogo}>SR</a>
             </div>
 
             <div>
@@ -109,9 +120,15 @@ function App() {
                 </div>
            
 
-            <div class="social-media">
-                <a href="#">Github</a>
-                <a href="#">LinkedIn</a>
+            <div class="social-media" >
+                <a className="socialMedia"
+                onMouseEnter={() => handleMouseEnterLogo()}
+                onMouseLeave={handleMouseLeaveLogo}
+                href="#">Github</a>
+                <a className="socialMedia"
+                onMouseEnter={() => handleMouseEnterLogo()}
+                onMouseLeave={handleMouseLeaveLogo}
+                href="#">LinkedIn</a>
 
             </div>
         </div>
