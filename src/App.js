@@ -24,7 +24,7 @@ function App() {
 
 
         const { clientX, clientY } = e;
-        if(
+        if (
           clientX >= positionOfImage.left &&
           clientX <= positionOfImage.right &&
           clientY >= positionOfImage.top &&
@@ -63,8 +63,8 @@ function App() {
       position: 'absolute',
       left: `${position.x}px`,
       top: `${position.y}px`,
-      width: '40px',
-      height: '40px',
+      width: '60px',
+      height: '60px',
       backgroundColor: 'transparent',
       borderRadius: '50%',
       pointerEvents: 'none', 
@@ -78,8 +78,8 @@ function App() {
       position: 'absolute',
       left: `${position.x}px`,
       top: `${position.y}px`,
-      width: '70px',
-      height: '70px',
+      width: '90px',
+      height: '90px',
       backgroundColor: 'White',
       borderRadius: '50%',
       pointerEvents: 'none', 
@@ -102,9 +102,10 @@ function App() {
       zIndex:100,
       opacity: '0',
       //add smoother transition
-      transition: 'opacity 0.3s ease, width 0.3s ease, height 0.3s ease', 
+      transition: 'opacity 0.3s ease, width 0.2s ease, height 0.2s ease', 
     };
 
+  const none = {};
     
 
 
@@ -152,7 +153,7 @@ function App() {
 
   return (
     <>
-    <div id="cursor" style={cursorEdit == false ? linkStyle : (cursorVisible == false ? cursorGone : followerStyle)}>
+    <div id="cursor" style={cursorEdit === false ? linkStyle : (cursorVisible === false ? cursorGone : followerStyle)}>
     </div>
 
     
@@ -216,7 +217,7 @@ function App() {
           className="foreground-image" 
           src={`${process.env.PUBLIC_URL}/hero-pic-bw.png`} 
           alt="My Portfolio Screenshot" 
-          style={{clipPath: `circle(100px at ${position.x - positionOfImage.left}px ${position.y - positionOfImage.top}px)`}}/>
+          style= {{clipPath: `circle(100px at ${position.x - positionOfImage.left}px ${position.y - positionOfImage.top}px)`}}/>
          
 
         </div>
