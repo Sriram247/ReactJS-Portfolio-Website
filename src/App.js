@@ -14,7 +14,14 @@ function App() {
     const relativeImageRef = useRef(null);
     
     
-    
+    useEffect(() => {
+      const element = relativeImageRef.current;
+      const rect = element.getBoundingClientRect();
+      setPositionofImage({top: rect.top, left: rect.left, bottom:rect.bottom, right: rect.right})
+      
+      console.log("Top:", rect.top); // Position relative to the viewport
+      console.log("Left:", rect.left); // Position relative to the viewport
+    }, [cursorEdit]);
     
 
     useEffect(() => {
@@ -49,14 +56,7 @@ function App() {
     }, []);
 
 
-    useEffect(() => {
-      const element = relativeImageRef.current;
-      const rect = element.getBoundingClientRect();
-      setPositionofImage({top: rect.top, left: rect.left, bottom:rect.bottom, right: rect.right})
-      
-      console.log("Top:", rect.top); // Position relative to the viewport
-      console.log("Left:", rect.left); // Position relative to the viewport
-    }, []);
+    
 
       // Style object to position the follower div
     const followerStyle = {
