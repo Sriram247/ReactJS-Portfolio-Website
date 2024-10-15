@@ -4,9 +4,7 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-
   cursor: None !important;
-
 }
 
 
@@ -114,13 +112,17 @@ nav {
 .social-media a {
   color: white;
   text-decoration: none;
-  margin-left: 15px;
+  /* margin-left: 15px; */
   font-size: 18px;
   transition: color 0.3s;
+  padding: 10px 10px;
 }
 
-.social-media a:hover {
+
+.social-media .socialMedia.hovered { 
   color: #0b0b0b;
+  transition: color 0.3s ease;
+  
 }
 
 @media screen and (max-width: 768px) {
@@ -131,4 +133,31 @@ nav {
   .social-media {
       display: none;
   }
+}
+
+.text{
+  position: absolute;
+}
+
+.body .image{
+  position: relative;
+  margin: auto;
+  z-index: -1;
+  margin-top: -100px;}
+
+.background-image {
+  top: 0;
+  left: 0;
+  position: Absolute;
+  z-index: 1;
+}
+
+/* Foreground image (image2.jpg) */
+.foreground-image {
+  top: 0;
+  left: 0;
+  position: Absolute;
+  z-index: 2;
+  clip-path: circle(0 at 0 0); /* Start with no visible area */
+  transition: clip-path 0.1s ease;
 }

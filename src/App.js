@@ -1,29 +1,62 @@
 import './App.css';
-import {Body} from'.//Components/Body.js';
-import React, { useState, useEffect } from 'react';
+import './Body.css';
+import React, { useState, useEffect, useRef } from 'react';
 
 
 function App() {
 
-    // State to store the current mouse position
-    const [position, setPosition] = useState({ x: 0, y: 0 });
-
+    const [position, setPosition] = useState({ x: 0, y: 0, body:0 }); //Body-0 means its a circle, Body-1 means its on an image
+    const [isHoveredSocialMedia, setIsHoveredSocialMedia] = useState(false);
+    const [hoveredIndex, setHoveredIndex] = useState(null); 
+    const [cursorEdit, setCursorEdit] = useState(true); //true is small,false is big
+    const [cursorVisible, setCursorVisible] = useState(true); 
+    const [positionOfImage, setPositionofImage] = useState({ top: 0, left: 0,bottom:0, right:0}); 
+    const relativeImageRef = useRef(null);
+    
+    
+    
+    
 
     useEffect(() => {
       // Function to update the state with the mouse position
       const handleMouseMove = (e) => {
         setPosition({ x: e.pageX, y: e.pageY });
-      };
-  
-      // Add the event listener to track mouse movement
+
+
+        const { clientX, clientY } = e;
+        if(
+          clientX >= positionOfImage.left &&
+          clientX <= positionOfImage.right &&
+          clientY >= positionOfImage.top &&
+          clientY <= positionOfImage.bottom
+        ){
+          setCursorVisible(false);  // Hide cursor
+          console.log("Cursor visible is false");
+        }
+        else{
+          console.log("Cursor visible is released");
+          setCursorVisible(true); 
+
+        }
+          console.log(e.pageX, e.pageY);
+        };
+        
       window.addEventListener('mousemove', handleMouseMove);
   
-      // Cleanup the event listener when the component unmounts
       return () => {
         window.removeEventListener('mousemove', handleMouseMove);
       };
     }, []);
 
+
+    useEffect(() => {
+      const element = relativeImageRef.current;
+      const rect = element.getBoundingClientRect();
+      setPositionofImage({top: rect.top, left: rect.left, bottom:rect.bottom, right: rect.right})
+      
+      console.log("Top:", rect.top); // Position relative to the viewport
+      console.log("Left:", rect.left); // Position relative to the viewport
+    }, []);
 
       // Style object to position the follower div
     const followerStyle = {
@@ -37,7 +70,7 @@ function App() {
       pointerEvents: 'none', 
       transform: 'translate(-50%, -50%)', 
       zIndex:100,
-      transition: 'width 0.3s ease, height 0.3s ease, transform 0.3s ease', 
+      transition: 'opacity 0.2s ease ,width 0.3s ease, height 0.3s ease, transform 0.3s ease', 
 
       
     };
@@ -56,12 +89,26 @@ function App() {
       transition: 'width 0.5s ease, height 0.5s ease, transform 0.5s ease', 
 
     };
-
-
+    const cursorGone = {
+      position: 'absolute',
+      left: `${position.x}px`,
+      top: `${position.y}px`,
+      width: '200px',
+      height: '200px',
+      backgroundColor: 'transparent',
+      borderRadius: '50%',
+      pointerEvents: 'none', 
+      transform: 'translate(-50%, -50%)', 
+      zIndex:100,
+      opacity: '0',
+      //add smoother transition
+      transition: 'opacity 0.3s ease, width 0.3s ease, height 0.3s ease', 
+    };
 
     
-    const [hoveredIndex, setHoveredIndex] = useState(null); 
-    const [cursorEdit, setCursorEdit] = useState("False");
+
+
+
     
     // Array of items
     const items = ['Home', 'About', 'Say Hello'];
@@ -69,41 +116,55 @@ function App() {
     // Handle when mouse enters a list item
     const handleMouseEnter = (index) => {
         setHoveredIndex(index); // Set the hovered index to the current item
-        setCursorEdit("True"); // Set the hovered index to the current item
+        setCursorEdit(false); // Set the hovered index to the current item
 
     };
     
     // Handle when mouse leaves a list item
     const handleMouseLeave = () => {
         setHoveredIndex(null); // Reset the hovered index when the mouse leaves
-        setCursorEdit("False"); // Set the hovered index to the current item
-
+        console.log("Mouse became small");
+        setCursorEdit(true); // Set the hovered index to the current item
     };
 
     const handleMouseEnterLogo = () => {
-      setCursorEdit("True");
+      setCursorEdit(false);
       console.log("Mouse entered logo")
     }
 
     const handleMouseLeaveLogo = () => {
-      setCursorEdit("False");
+      setCursorEdit(true);
+      console.log("Mouse became small");
+
     }
+
+    const handleMouseEnterSocialMedia = () => {
+      setCursorEdit(false);
+      setIsHoveredSocialMedia(true);
+    };
+  
+    const handleMouseLeaveSocialMedia = () => {
+      setCursorEdit(true);
+      console.log("Mouse became small");
+
+      setIsHoveredSocialMedia(false);
+    };
 
   return (
     <>
-    <div id="cursor" style={cursorEdit === "True" ? linkStyle : followerStyle}>
+    <div id="cursor" style={cursorEdit == false ? linkStyle : (cursorVisible == false ? cursorGone : followerStyle)}>
     </div>
 
     
-        <div class="navbar-container">
-            <div class="logo">
+        <div className="navbar-container">
+            <div className="logo">
                 <a href="#"
                 onMouseEnter={() => handleMouseEnterLogo()}
                 onMouseLeave={handleMouseLeaveLogo}>SR</a>
             </div>
 
             <div>
-            <ul class="nav-links">
+            <ul className="nav-links">
                 {items.map((item, index) => (
                   <li
                   key={index}
@@ -120,20 +181,46 @@ function App() {
                 </div>
            
 
-            <div class="social-media" >
-                <a className="socialMedia"
-                onMouseEnter={() => handleMouseEnterLogo()}
-                onMouseLeave={handleMouseLeaveLogo}
-                href="#">Github</a>
-                <a className="socialMedia"
-                onMouseEnter={() => handleMouseEnterLogo()}
-                onMouseLeave={handleMouseLeaveLogo}
-                href="#">LinkedIn</a>
+            <div className="social-media" >
+                
+                <a className={`socialMedia ${isHoveredSocialMedia ? "hovered" : ""}`}
+                onMouseEnter={() => handleMouseEnterSocialMedia()}
+                onMouseLeave={handleMouseLeaveSocialMedia}
+                href="https://github.com/Sriram247">Github</a>
+
+                <a className={`socialMedia ${isHoveredSocialMedia ? "hovered" : ""}`}
+                onMouseEnter={() => handleMouseEnterSocialMedia()}
+                onMouseLeave={handleMouseLeaveSocialMedia}
+                href="https://www.linkedin.com/in/sriramramesh28/">LinkedIn</a>
 
             </div>
         </div>
 
-    <Body/>
+    
+        <div className="body">
+        <div className='text'>
+
+        <h3>
+            Hi, I'm Sriram Ramesh
+        </h3>
+        <h2>
+            An Aspiring Entrepreneur trying react!<br></br>
+            Based in Halifax, Canada.
+        </h2>
+        
+        </div>
+        <div className="image">
+        
+        <img ref={relativeImageRef} className="background-image" src={`${process.env.PUBLIC_URL}/hero-pic.png`} alt="My Portfolio Screenshot" />
+        <img 
+          className="foreground-image" 
+          src={`${process.env.PUBLIC_URL}/hero-pic-bw.png`} 
+          alt="My Portfolio Screenshot" 
+          style={{clipPath: `circle(100px at ${position.x - positionOfImage.left}px ${position.y - positionOfImage.top}px)`}}/>
+         
+
+        </div>
+        </div>
   
 
 
