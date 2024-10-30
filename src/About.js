@@ -8,7 +8,7 @@ import './Body.css';
 
 function About() {
     
-    const [position, setPosition] = useState({ x: 0, y: 0, body:0 }); //Body-0 means its a circle, Body-1 means its on an image
+    const [position, setPosition] = useState({ x: -9999, y: -9999, body: 0 }); //Body-0 means its a circle, Body-1 means its on an image
     const [isHoveredSocialMedia, setIsHoveredSocialMedia] = useState(false);
     const [hoveredIndex, setHoveredIndex] = useState(null); 
     const [cursorEdit, setCursorEdit] = useState(true); //true is small,false is big

@@ -56,8 +56,11 @@ const Weather = () => {
 
     return (
         <div className="weather-container">
-            <h4>Temperature: {weatherData.main.temp}°{isCelsius ? 'C' : 'F'}</h4>
-
+           <h4>
+                Temperature: {isCelsius 
+                    ? weatherData.main.temp 
+                    : ((weatherData.main.temp * 9) / 5 + 32).toFixed(2)}°{isCelsius ? 'C' : 'F'}
+            </h4>
             <button
         style={buttonStyle}
         onClick={toggleUnits}
