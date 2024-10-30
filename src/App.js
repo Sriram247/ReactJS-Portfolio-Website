@@ -13,7 +13,9 @@ function App() {
     const [positionOfImage, setPositionofImage] = useState({ top: 0, left: 0,bottom:0, right:0}); 
     const relativeImageRef = useRef(null);
     
-    
+    //Change to about:
+    const[page,setPage] = useState("Home");
+
     useEffect(() => {
       const element = relativeImageRef.current;
       const rect = element.getBoundingClientRect();
@@ -21,7 +23,7 @@ function App() {
       
       console.log("Top:", rect.top); // Position relative to the viewport
       console.log("Left:", rect.left); // Position relative to the viewport
-    }, [cursorEdit]);
+    },[position]);
     
 
     useEffect(() => {
@@ -29,7 +31,7 @@ function App() {
       const handleMouseMove = (e) => {
         setPosition({ x: e.pageX, y: e.pageY });
 
-
+        console.log(positionOfImage.left);
         const { clientX, clientY } = e;
         if (
           clientX >= positionOfImage.left &&
