@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from 'react';
+import './Body.css';
+
 
 const Weather = () => {
     const [weatherData, setWeatherData] = useState(null);
@@ -39,6 +41,19 @@ const Weather = () => {
     if (error) return <p>Error loading weather data: {error}</p>;
 
 
+    const getWeatherImage = () => {
+        const temp = weatherData.main.temp;
+
+        if (temp <= 10) {
+            return `${process.env.PUBLIC_URL}/cold.png`;
+        } else if (temp > 10 && temp < 20) {
+            return `${process.env.PUBLIC_URL}/mild.png`;
+        } else {
+            return `${process.env.PUBLIC_URL}/sunny.png`;
+        }
+    };
+
+
     const buttonStyle = {
         backgroundColor: hover ? '#333' : 'black',
         color: 'white',
@@ -61,6 +76,8 @@ const Weather = () => {
                     ? weatherData.main.temp 
                     : ((weatherData.main.temp * 9) / 5 + 32).toFixed(2)}°{isCelsius ? 'C' : 'F'}
             </h4>
+            <img src={getWeatherImage()} alt="Weather icon" style={{ marginLeft: '10px', width: '24px', height: '24px' }} />
+            <br></br>
             <button
         style={buttonStyle}
         onClick={toggleUnits}

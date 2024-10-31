@@ -15,9 +15,9 @@ function Home() {
     const [positionOfImage, setPositionofImage] = useState({ top: 0, left: 0,bottom:0, right:0}); 
     const relativeImageRef = useRef(null);
     
-    //Change to about:
+/*     //Change to about:
     const[page,setPage] = useState("Home");
-
+ */
     useEffect(() => {
       const element = relativeImageRef.current;
       const rect = element.getBoundingClientRect();
@@ -25,7 +25,7 @@ function Home() {
       
       console.log("Top:", rect.top); // Position relative to the viewport
       console.log("Left:", rect.left); // Position relative to the viewport
-    },[position]);
+    },[]);
     
 
     useEffect(() => {
@@ -33,7 +33,7 @@ function Home() {
       const handleMouseMove = (e) => {
         setPosition({ x: e.pageX, y: e.pageY });
 
-        console.log(positionOfImage.left);
+      console.log(positionOfImage.left);
         const { clientX, clientY } = e;
         if (
           clientX >= positionOfImage.left &&
@@ -49,7 +49,7 @@ function Home() {
           setCursorVisible(true); 
 
         }
-          console.log(e.pageX, e.pageY);
+          console.log(e.pageX, e.pageY); 
         };
         
       window.addEventListener('mousemove', handleMouseMove);
@@ -220,9 +220,11 @@ function Home() {
         </h3>
         <h2>
             An Aspiring Entrepreneur trying react!<br></br>
-            Based in Halifax, Canada.
+            I joined MCDA to network with great people.
         </h2>
-        
+        <p>
+            P.S. Click on the linkedin icon to check if <br></br>you're connected with me!
+        </p>
         </div>
         <div className="image">
         

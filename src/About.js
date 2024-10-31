@@ -26,7 +26,7 @@ function About() {
       
       console.log("Top:", rect.top); // Position relative to the viewport
       console.log("Left:", rect.left); // Position relative to the viewport
-    },[position]);
+    },[]);
     
 
     useEffect(() => {
@@ -223,7 +223,7 @@ function About() {
         </div>
         <div className="image">
         
-        <img ref={relativeImageRef} className="background-image" src={`${process.env.PUBLIC_URL}/halifax.jpg`} alt="My Portfolio Screenshot" />
+        <img ref={relativeImageRef} className="background-image" src={`${process.env.PUBLIC_URL}/halifax-1.jpg`} alt="My Portfolio Screenshot" />
         <img 
           className="foreground-image" 
           src={`${process.env.PUBLIC_URL}/halifax-map.jpg`} 
