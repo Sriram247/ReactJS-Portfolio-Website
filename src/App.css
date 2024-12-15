@@ -7,8 +7,6 @@
   cursor: None !important;
 }
 
-
-
 /* Cursor animations */
 div#cursor {
   width: 3.5rem;
@@ -17,11 +15,8 @@ div#cursor {
   border-radius: 50%;
   background-color: transparent;
   transform: translate(-50%, -50%);
-  transition: all 0.3s ease;
-  transition-property: transform;
-
+  transition: transform 0.3s ease;
 }
-
 
 body{
   background: #0b0b0b;
