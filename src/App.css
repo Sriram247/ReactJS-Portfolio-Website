@@ -8,9 +8,8 @@
   box-sizing: border-box;
 }
 
-/* Cursor customization */
 body, nav {
-  cursor: auto; /* Set to default behavior */
+  cursor: none !important;
 }
 
 /* Cursor animations */
@@ -39,7 +38,6 @@ body {
   color: #ecf0f1; /* Highlight text color */
 }
 
-
 nav {
   padding: 10px 20px;
   position: sticky;
@@ -49,8 +47,6 @@ nav {
   opacity: 97%;
   background-color: #0b0b0b;
 }
-
-
 
 .navbar-container {
   display: flex;
